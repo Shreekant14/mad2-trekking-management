@@ -6,6 +6,7 @@ __pycache__/
 
 # Flask
 instance/
+*.db
 
 # Environment variables
 .env
