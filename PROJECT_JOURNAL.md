@@ -64,3 +64,82 @@ feat(models): create User model and initialize database
 ### Next
 
 Implement Trek model
+
+## Milestone 1 - Database Layer
+
+### Completed
+
+- Created User model
+- Created Trek model
+- Created Booking model
+- Created StaffAssignment model
+- Configured Flask-Migrate
+- Generated initial database migration
+- Resolved migration detection issue
+
+### Git Commit
+
+feat(database): add models and configure Flask-Migrate
+
+### Next
+
+Authentication Module
+
+# Project Journal
+
+---
+
+## Date: 06 August 2026
+
+## Milestone 2 - Authentication Module
+
+### Completed
+
+- Implemented password hashing using Flask-Bcrypt
+- Developed user registration API
+- Developed user login API
+- Implemented JWT authentication
+- Created protected API endpoint
+- Successfully tested all authentication APIs
+
+### APIs Completed
+
+POST /api/auth/register
+POST /api/auth/login
+GET /api/auth/profile
+
+### Git Commit
+
+feat(auth): implement JWT authentication
+
+### Next
+
+Admin Module - Trek Management
+
+## Milestone 3 - Admin Trek Management
+
+### Completed
+
+- Implemented role-based authorization using custom decorators.
+- Developed complete Trek CRUD APIs.
+- Added Trek model serialization using `to_dict()`.
+- Protected all admin endpoints using JWT and RBAC.
+- Successfully tested all CRUD operations.
+- Verified Trekker users cannot access Admin APIs.
+
+### APIs Completed
+
+POST /api/admin/treks
+GET /api/admin/treks
+GET /api/admin/treks/<id>
+PUT /api/admin/treks/<id>
+DELETE /api/admin/treks/<id>
+
+### Issues Resolved
+
+- Flask-Migrate not detecting models.
+- Missing `to_dict()` method in Trek model.
+
+### Git Commit
+
+feat(admin): implement trek management CRUD with RBAC
