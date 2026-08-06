@@ -33,7 +33,7 @@ class Trek(db.Model):
     location = db.Column(db.String(100), nullable=False)
     difficulty = db.Column(db.String(20), nullable=False)
     duration = db.Column(db.Integer, nullable=False)
-    price = db.Column(db.Float, nullable=False)
+    price = db.Column(db.Numeric(10, 2), nullable=False)
     description = db.Column(db.Text)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
@@ -47,6 +47,24 @@ class Trek(db.Model):
         db.ForeignKey("users.id"),
         nullable=False
     )
+
+    def to_dict(self):
+        return {
+        "id": self.id,
+        "title": self.title,
+        "location": self.location,
+        "difficulty": self.difficulty,
+        "duration": self.duration,
+        "price": float(self.price),
+        "description": self.description,
+        "start_date": self.start_date.isoformat(),
+        "end_date": self.end_date.isoformat(),
+        "total_slots": self.total_slots,
+        "available_slots": self.available_slots,
+        "status": self.status,
+        "created_at": self.created_at.isoformat(),
+        "created_by": self.created_by
+    }
 
     def __repr__(self):
         return f"<Trek {self.title}>"
