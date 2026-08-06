@@ -5,13 +5,15 @@ from flask_jwt_extended import jwt_required, get_jwt
 
 from app.decorators import admin_required
 from app.extensions import db
-from app.models import Trek
+from app.models import Trek, User
 
 admin_bp = Blueprint(
     "admin",
     __name__,
     url_prefix="/api/admin"
 )
+
+# Trek Routes
 
 @admin_bp.route("/treks", methods=["POST"])
 @jwt_required()
@@ -140,4 +142,59 @@ def delete_trek(trek_id):
 
     return jsonify({
         "message": "Trek deleted successfully"
+    }), 200
+
+# User Routes
+
+@admin_bp.route("/users", methods=["GET"])
+@jwt_required()
+@admin_required
+def get_all_users():
+
+    users = User.query.all()
+
+    return jsonify([
+        user.to_dict() for user in users
+    ]), 200
+
+@admin_bp.route("/users/<int:user_id>", methods=["GET"])
+@jwt_required()
+@admin_required
+def get_user(user_id):
+
+    user = User.query.get_or_404(user_id)
+
+    return jsonify(user.to_dict()), 200
+
+@admin_bp.route("/users/<int:user_id>", methods=["PUT"])
+@jwt_required()
+@admin_required
+def update_user(user_id):
+
+    user = User.query.get_or_404(user_id)
+
+    data = request.get_json()
+
+    if "is_active" in data:
+        user.is_active = data["is_active"]
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "User updated successfully"
+    }), 200
+
+@admin_bp.route("/users/<int:user_id>", methods=["DELETE"])
+@jwt_required()
+@admin_required
+def delete_user(user_id):
+
+    user = User.query.get_or_404(user_id)
+
+    db.session.delete(user)
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "User deleted successfully"
     }), 200

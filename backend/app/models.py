@@ -21,6 +21,17 @@ class User(db.Model):
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
 
+    def to_dict(self):
+        return {
+        "id": self.id,
+        "full_name": self.full_name,
+        "email": self.email,
+        "phone": self.phone,
+        "role": self.role,
+        "is_active": self.is_active,
+        "created_at": self.created_at.isoformat()
+    }
+
     def __repr__(self):
         return f"<User {self.email}>"
 
