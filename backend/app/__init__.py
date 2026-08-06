@@ -1,7 +1,7 @@
 from flask import Flask
 
 from .config import Config
-from .extensions import db, jwt, cors, migrate
+from .extensions import db, jwt, cors, migrate, bcrypt
 
 
 def create_app():
@@ -13,6 +13,7 @@ def create_app():
     jwt.init_app(app)
     cors.init_app(app)
     migrate.init_app(app, db)
+    bcrypt.init_app(app)
 
     # Import models so Flask-Migrate can detect them
     from . import models
