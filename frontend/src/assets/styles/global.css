@@ -1,0 +1,177 @@
+/* =========================================================
+   Trekking Management System
+   Global Design System
+   ========================================================= */
+
+:root {
+  /* Brand Colors */
+    --tm-primary: #2e7d32;
+    --tm-primary-dark: #1b5e20;
+    --tm-primary-light: #e8f5e9;
+
+    --tm-secondary: #546e7a;
+    --tm-accent: #ffc107;
+
+  /* Backgrounds */
+    --tm-background: #f8f9fa;
+    --tm-surface: #ffffff;
+
+  /* Text */
+    --tm-text: #212529;
+    --tm-text-muted: #6c757d;
+
+  /* Borders */
+    --tm-border: #dee2e6;
+
+  /* Status */
+    --tm-success: #198754;
+    --tm-danger: #dc3545;
+    --tm-warning: #ffc107;
+    --tm-info: #0dcaf0;
+
+  /* Shape */
+    --tm-radius: 10px;
+    --tm-radius-sm: 6px;
+
+  /* Shadows */
+    --tm-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --tm-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================================
+    Base
+   ========================================================= */
+
+html,
+body,
+#app {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: var(--tm-background);
+    color: var(--tm-text);
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+/* =========================================================
+   Links
+   ========================================================= */
+
+a {
+    color: var(--tm-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--tm-primary-dark);
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+
+.btn-primary {
+    --bs-btn-bg: var(--tm-primary);
+    --bs-btn-border-color: var(--tm-primary);
+    --bs-btn-hover-bg: var(--tm-primary-dark);
+    --bs-btn-hover-border-color: var(--tm-primary-dark);
+    --bs-btn-active-bg: var(--tm-primary-dark);
+    --bs-btn-active-border-color: var(--tm-primary-dark);
+}
+
+/* =========================================================
+   Cards
+   ========================================================= */
+
+.tm-card {
+    background: var(--tm-surface);
+    border: 1px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    box-shadow: var(--tm-shadow-sm);
+}
+
+/* =========================================================
+   Dashboard Cards
+   ========================================================= */
+
+.tm-dashboard-card {
+    background: var(--tm-surface);
+    border: 0;
+    border-radius: var(--tm-radius);
+    box-shadow: var(--tm-shadow);
+    padding: 1.25rem;
+}
+
+/* =========================================================
+   Page Layout
+   ========================================================= */
+
+.tm-page {
+    padding: 1.5rem;
+}
+
+.tm-page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.tm-page-subtitle {
+    color: var(--tm-text-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* =========================================================
+   Forms
+   ========================================================= */
+
+.form-control,
+.form-select {
+    border-radius: var(--tm-radius-sm);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--tm-primary);
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.15);
+}
+
+/* =========================================================
+   Tables
+   ========================================================= */
+
+.tm-table-card {
+    overflow: hidden;
+    background: var(--tm-surface);
+    border-radius: var(--tm-radius);
+    box-shadow: var(--tm-shadow-sm);
+}
+
+/* =========================================================
+   Status Badges
+   ========================================================= */
+
+.tm-status {
+    border-radius: 50rem;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* =========================================================
+   Utility
+   ========================================================= */
+
+.tm-muted {
+    color: var(--tm-text-muted);
+}
