@@ -143,3 +143,166 @@ DELETE /api/admin/treks/<id>
 ### Git Commit
 
 feat(admin): implement trek management CRUD with RBAC
+
+# Milestone 4
+
+# Milestone 5 – Booking Module & Backend Completion
+
+## Completed
+
+- Implemented Trekker APIs.
+- Trek browsing.
+- Trek booking.
+- My bookings.
+- Booking cancellation.
+- Staff assignment APIs.
+- Staff management APIs.
+- Admin booking management.
+- Dashboard API planning.
+
+## Testing
+
+Successfully tested:
+
+- Trek CRUD
+- User CRUD
+- Staff CRUD
+- Staff Assignment
+- Trek Browsing
+- Trek Booking
+- Booking Cancellation
+- JWT Authentication
+- RBAC Authorization
+
+## Challenges Faced
+
+- Missing Blueprint registration.
+- Incorrect Flask route parameter syntax.
+- Missing `to_dict()` method.
+- Flask-Migrate model detection issue.
+- Duplicate staff assignment handling.
+- Booking slot synchronization.
+
+## Learning
+
+- Flask Blueprints
+- JWT Authentication
+- Role-Based Authorization
+- SQLAlchemy Relationships
+- REST API Design
+
+### Bug Fix
+
+While testing Staff APIs, login failed with an `Invalid salt` error.
+
+Investigation showed that one test staff account had been created using an older password hashing method before the project standardized on Flask-Bcrypt.
+
+The old test account was removed and recreated through the Staff Creation API. After recreating the account, authentication worked correctly.
+
+# Milestone 6 – Backend Feature Completion
+
+## Goal
+
+Complete all remaining backend APIs for the Trekking Management System.
+
+---
+
+## Work Completed
+
+### Admin Module
+
+- Trek CRUD
+- User Management
+- Staff Management
+- Staff Assignment
+- Booking Management
+- Dashboard API
+
+### Staff Module
+
+- My Treks
+- Participants List
+- Dashboard API
+
+### Trekker Module
+
+- Browse Treks
+- Book Trek
+- View My Bookings
+- Cancel Booking
+- Dashboard API
+
+---
+
+## Testing Performed
+
+Successfully tested:
+
+- User Registration
+- User Login
+- JWT Authentication
+- Role-Based Authorization
+- Trek CRUD
+- User CRUD
+- Staff CRUD
+- Staff Assignment
+- Trek Booking
+- Booking Cancellation
+- Trek Browsing
+- Staff APIs
+- Dashboard APIs
+
+---
+
+## Issues Faced
+
+1. Blueprint registration missing.
+
+Result:
+
+404 errors.
+
+Resolved by registering all Blueprints inside `create_app()`.
+
+---
+
+2. Incorrect Flask route parameter syntax.
+
+Used:
+
+```
+/staff/int:staff_id
+```
+
+Corrected to:
+
+```
+/staff/<int:staff_id>
+```
+
+---
+
+3. Flask-Migrate schema detection issue.
+
+Resolved by importing models inside `create_app()` before migrations.
+
+---
+
+4. Password hashing inconsistency.
+
+One test user used an old hashing method.
+
+Resolved by deleting the user and recreating it using Flask-Bcrypt.
+
+---
+
+## What I Learned
+
+- Flask Blueprints
+- JWT Authentication
+- Role-Based Access Control
+- SQLAlchemy Relationships
+- REST API Design
+- Database Migrations
+- Debugging Flask Applications
+- API Testing

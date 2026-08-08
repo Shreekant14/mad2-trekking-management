@@ -219,7 +219,124 @@ Benefits:
 - Makes authorization reusable.
 - Easier to maintain.
 
+## Staff Management
+
+Staff members are stored in the same `users` table.
+
+The `role` field differentiates:
+
+- ADMIN
+- STAFF
+- TREKKER
+
+This avoids creating separate tables for different user types and simplifies authentication.
+
+## Role-Based Route Separation
+
+Instead of placing all APIs inside one file, routes are separated by user roles.
+
+- auth.py
+- admin.py
+- staff.py
+- trekker.py
+
+Benefits:
+
+- Cleaner architecture
+- Easier maintenance
+- Easier debugging
+- Easier to explain during viva
+
 ---
+
+## JWT Identity
+
+When creating the JWT:
+
+```python
+create_access_token(
+    identity=str(user.id),
+    additional_claims={
+        "role": user.role
+    }
+)
+```
+
+The logged-in user's ID is retrieved using:
+
+```python
+get_jwt_identity()
+```
+
+The user's role is retrieved using:
+
+```python
+get_jwt()["role"]
+```
+
+---
+
+## Booking Logic
+
+When a booking is created:
+
+- Booking record is inserted.
+- Available slots decrease.
+
+When a booking is cancelled:
+
+- Booking status changes to `CANCELLED`.
+- Available slots are restored.
+
+This keeps trek capacity consistent.
+
+---
+
+## Staff Assignment Logic
+
+A staff member can be assigned to multiple treks.
+
+A trek can have multiple staff members.
+
+The `staff_assignments` table implements this many-to-many relationship.
+
+---
+
+## Common Bugs Solved
+
+### Missing Blueprint Registration
+
+If a Blueprint is not registered inside `create_app()`, every route inside that file returns **404**.
+
+---
+
+### Wrong Route Syntax
+
+Incorrect:
+
+```python
+"/staff/int:staff_id"
+```
+
+Correct:
+
+```python
+"/staff/<int:staff_id>"
+```
+
+---
+
+### SQLAlchemy Model Serialization
+
+SQLAlchemy models cannot be returned directly as JSON.
+
+Use:
+
+```python
+to_dict()
+```
+
+## or manually construct the response dictionary.
 
 # Viva Questions
 
@@ -477,6 +594,210 @@ Detected added table 'staff_assignments'
 Flask-Migrate only creates migrations for models that have been imported.
 
 Always ensure models are imported before generating migrations.
+
+### Invalid Salt Error
+
+Problem:
+
+Login failed with:
+
+```
+ValueError: Invalid salt
+```
+
+Cause:
+
+Some users were created before the project consistently used Flask-Bcrypt.
+
+Their passwords were stored using a different hashing format.
+
+Solution:
+
+Deleted the old test user and recreated it using the current Staff Creation API, which uses:
+
+```python
+staff.set_password(password)
+```
+
+Learning:
+
+Always use one password hashing method throughout the entire project.
+Never mix Werkzeug hashing and Flask-Bcrypt.
+
+---
+
+# New Concepts Learned
+
+## Role-Based Route Separation
+
+The project is divided into separate Blueprint files based on user roles:
+
+- auth.py
+- admin.py
+- staff.py
+- trekker.py
+
+Benefits:
+
+- Better project organization
+- Easier debugging
+- Cleaner codebase
+- Easier to explain during viva
+
+---
+
+## JWT Identity vs JWT Claims
+
+The JWT stores two different types of information.
+
+Identity:
+
+```python
+create_access_token(
+    identity=str(user.id)
+)
+```
+
+Retrieve using:
+
+```python
+get_jwt_identity()
+```
+
+Additional Claims:
+
+```python
+additional_claims={
+    "role": user.role,
+    "email": user.email
+}
+```
+
+Retrieve using:
+
+```python
+get_jwt()["role"]
+```
+
+Learning:
+
+Use `get_jwt_identity()` for the logged-in user's ID and `get_jwt()` for additional information like role.
+
+---
+
+## Many-to-Many Relationship
+
+A Staff member can manage multiple Treks.
+
+A Trek can have multiple Staff members.
+
+This relationship is implemented using the `staff_assignments` table.
+
+---
+
+## Booking Flow
+
+Booking Process
+
+1. Trekker books a trek.
+2. Booking record is created.
+3. Available slots decrease.
+
+Cancellation Process
+
+1. Booking status changes to `CANCELLED`.
+2. Available slots are restored.
+
+This prevents incorrect trek capacity.
+
+---
+
+## Dashboard APIs
+
+Each user role has a separate dashboard API.
+
+Admin
+
+- Total Users
+- Total Staff
+- Total Trekkers
+- Total Treks
+- Total Bookings
+
+Staff
+
+- Assigned Treks
+- Upcoming Treks
+- Completed Treks
+
+Trekker
+
+- Total Bookings
+- Confirmed Bookings
+- Cancelled Bookings
+
+---
+
+## Common Bugs Solved
+
+### Blueprint not registered
+
+Symptoms
+
+404 for every API inside the Blueprint.
+
+Solution
+
+Register Blueprint inside `create_app()`.
+
+---
+
+### Wrong Flask Route Syntax
+
+Incorrect
+
+```python
+"/staff/int:staff_id"
+```
+
+Correct
+
+```python
+"/staff/<int:staff_id>"
+```
+
+---
+
+### Invalid Salt Error
+
+Cause
+
+Old test user used a different password hashing method.
+
+Solution
+
+Deleted the old user and recreated it using:
+
+```python
+user.set_password(password)
+```
+
+Learning
+
+Never mix password hashing methods.
+
+Always use one hashing library throughout the project.
+
+---
+
+### SQLAlchemy Serialization
+
+SQLAlchemy model objects cannot be returned directly as JSON.
+
+Use either:
+
+- `to_dict()`
+- Manual dictionary construction
 
 ---
 

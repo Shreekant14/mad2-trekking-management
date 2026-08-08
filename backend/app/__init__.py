@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, app
 
 from .config import Config
 from .extensions import db, jwt, cors, migrate, bcrypt
@@ -20,8 +20,12 @@ def create_app():
 
     from .routes.auth import auth_bp
     from .routes.admin import admin_bp
+    from .routes.staff import staff_bp
+    from .routes.trekker import trekker_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(staff_bp)
+    app.register_blueprint(trekker_bp)
 
     return app
