@@ -110,6 +110,12 @@ const routes = [
   },
 
   {
+    path: '/staff/treks/:trekId/participants',
+    name: 'staff-participants',
+    component: () => import('../views/staff/Participants.vue')
+  },
+
+  {
     path: '/trekker',
     name: 'trekker-dashboard',
     component: () => import('../views/trekker/Dashboard.vue'),
