@@ -20,6 +20,12 @@ const routes = [
   },
 
   {
+  path: '/register',
+  name: 'register',
+  component: () => import('../views/auth/Register.vue')
+  },
+
+  {
     path: '/admin',
     name: 'admin-dashboard',
     component: () => import('../views/admin/Dashboard.vue'),
@@ -150,6 +156,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
 
 router.beforeEach((to) => {
   const authenticated = isAuthenticated()
