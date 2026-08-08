@@ -1,10 +1,17 @@
-from flask import Flask, app
+from flask import Flask
 
 from .config import Config
-from .extensions import db, jwt, cors, migrate, bcrypt
+from .extensions import (
+    db,
+    jwt,
+    cors,
+    migrate,
+    bcrypt
+)
 
 
 def create_app():
+
     app = Flask(__name__)
 
     app.config.from_object(Config)
@@ -18,6 +25,12 @@ def create_app():
     # Import models so Flask-Migrate can detect them
     from . import models
 
+    # Initialize Celery
+    from .celery_app import init_celery
+
+    init_celery(app)
+
+    # Import routes
     from .routes.auth import auth_bp
     from .routes.admin import admin_bp
     from .routes.staff import staff_bp

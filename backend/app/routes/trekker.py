@@ -1,7 +1,8 @@
+import json
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.decorators import trekker_required
-from app.extensions import db
+from app.extensions import db, redis_client
 from app.models import Trek, Booking
 
 trekker_bp = Blueprint(
@@ -16,13 +17,32 @@ trekker_bp = Blueprint(
 @trekker_required
 def get_available_treks():
 
-    treks = Trek.query.filter_by(status="UPCOMING").all()
+    cache_key = "trekker:available_treks"
 
-    return jsonify([
-        trek.to_dict() for trek in treks
-    ]), 200
+    cached_treks = redis_client.get(cache_key)
 
-# Cheack available trek
+    if cached_treks:
+
+        return jsonify(json.loads(cached_treks)), 200
+
+    treks = Trek.query.filter_by(
+        status="UPCOMING"
+    ).all()
+
+    result = [
+        trek.to_dict()
+        for trek in treks
+    ]
+
+    redis_client.setex(
+        cache_key,
+        300,
+        json.dumps(result)
+    )
+
+    return jsonify(result), 200
+
+# Check available trek
 
 @trekker_bp.route("/bookings", methods=["POST"])
 @jwt_required()

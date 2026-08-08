@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt
 from sqlalchemy import func
 from app.decorators import admin_required
-from app.extensions import db
+from app.extensions import db, redis_client
 from app.models import Trek, User, StaffAssignment, Booking
 
 admin_bp = Blueprint(
@@ -67,6 +67,8 @@ def create_trek():
     db.session.add(trek)
     db.session.commit()
 
+    redis_client.delete("trekker:available_treks")
+
     return jsonify({
         "message": "Trek created successfully"
     }), 201
@@ -108,6 +110,8 @@ def update_trek(trek_id):
 
     db.session.commit()
 
+    redis_client.delete("trekker:available_treks")
+
     return jsonify({
         "message": "Trek updated successfully"
     }), 200
@@ -141,6 +145,8 @@ def delete_trek(trek_id):
 
     db.session.delete(trek)
     db.session.commit()
+
+    redis_client.delete("trekker:available_treks")
 
     return jsonify({
         "message": "Trek deleted successfully"
