@@ -306,3 +306,151 @@ Resolved by deleting the user and recreating it using Flask-Bcrypt.
 - Database Migrations
 - Debugging Flask Applications
 - API Testing
+
+---
+
+# Milestone 7 – Frontend Development
+
+## Date: 08 August 2026
+
+### Goal
+
+Develop the VueJS frontend for the completed Flask REST APIs while following the project technology restrictions.
+
+### Technology Used
+
+- Vue.js 3
+- Vite
+- Bootstrap 5
+- Bootstrap Icons
+- Axios
+- Vue Router
+
+### Completed
+
+- Created VueJS frontend using Vite.
+- Created frontend project structure.
+- Added Bootstrap 5.
+- Added Bootstrap Icons.
+- Added Axios for API communication.
+- Created global styling and application design system.
+- Implemented consistent Natural Tones visual theme.
+- Created reusable layout components.
+- Created navigation bar.
+- Created sidebar navigation.
+- Implemented login page.
+- Implemented JWT-based frontend authentication.
+- Stored authentication token for protected API requests.
+- Implemented role-based navigation.
+- Created Admin dashboard.
+- Created Admin trek management interface.
+- Created Admin staff management interface.
+- Created Staff assignment interface.
+- Created Staff dashboard.
+- Created Staff My Treks interface.
+- Created Staff participants interface.
+- Created Trekker dashboard.
+- Created available treks interface.
+- Created trek booking functionality.
+- Created My Bookings interface.
+- Implemented booking cancellation.
+- Connected frontend pages with Flask backend APIs.
+- Tested frontend API integration.
+
+### Frontend Role Workflows
+
+#### Admin
+
+Login
+→ Dashboard
+→ Trek Management
+→ Staff Management
+→ Staff Assignment
+→ Booking Management
+
+#### Staff
+
+Login
+→ Dashboard
+→ My Treks
+→ View Participants
+
+#### Trekker
+
+Login
+→ Dashboard
+→ Browse Treks
+→ Book Trek
+→ My Bookings
+→ Cancel Booking
+
+### Issues Resolved
+
+- Vue single-file component errors caused by incomplete `.vue` files.
+- Protected API requests initially returned `401 Unauthorized` because of an expired JWT.
+- Corrected frontend authentication/token handling.
+- Connected frontend requests to the Flask backend.
+- Resolved frontend route/component loading issues.
+
+### Testing
+
+Verified:
+
+- Login
+- JWT authentication
+- Role-based access
+- Admin dashboard
+- Trek management
+- Staff management
+- Staff assignment
+- Staff dashboard
+- Staff trek viewing
+- Participant viewing
+- Trekker dashboard
+- Trek browsing
+- Trek booking
+- My Bookings
+- Booking cancellation
+
+### Learning
+
+- Vue.js component structure
+- Vue Router
+- Axios API integration
+- JWT handling in frontend
+- Role-based UI
+- Bootstrap-based responsive UI
+- Reusable Vue components
+- Frontend-backend integration
+
+---
+
+# Milestone 8 – Final Submission Preparation
+
+## Date: 08 August 2026
+
+### Completed
+
+- Completed backend API development.
+- Completed VueJS frontend development.
+- Integrated frontend with Flask APIs.
+- Tested major application workflows.
+- Reviewed project folder structure.
+- Prepared project documentation.
+- Prepared database/ER diagram requirements.
+- Prepared project report structure.
+- Prepared video demonstration plan.
+
+### Final Submission Checklist
+
+- [ ] Final application testing
+- [ ] Final Git commit
+- [ ] ER diagram
+- [ ] Project report
+- [ ] AI/LLM declaration
+- [ ] Video recording
+- [ ] Upload video to Google Drive
+- [ ] Add video link to report
+- [ ] Create final ZIP
+- [ ] Verify ZIP structure
+- [ ] Submit project

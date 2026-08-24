@@ -800,7 +800,118 @@ Use either:
 - Manual dictionary construction
 
 ---
+---
 
+# Frontend Development Notes
+
+## Why VueJS?
+
+VueJS was used as the frontend framework as required by the project specification.
+
+VueJS provides component-based UI development and allows the frontend to communicate with the Flask backend through REST APIs.
+
+---
+
+## Why Bootstrap?
+
+Bootstrap was used for styling and responsive layout because the project specification permits Bootstrap as the HTML generation and styling framework.
+
+No additional CSS framework was used.
+
+---
+
+## Why Axios?
+
+Axios is used by the VueJS frontend to communicate with the Flask REST APIs.
+
+Example flow:
+
+Vue Component
+↓
+Axios Request
+↓
+Flask API
+↓
+SQLite Database
+↓
+JSON Response
+↓
+Vue Component
+
+---
+
+## JWT Handling in Frontend
+
+After successful login, the backend returns an access token.
+
+The frontend stores the token and sends it with protected API requests using:
+
+Authorization: Bearer <token>
+
+This allows the Flask backend to authenticate the current user.
+
+---
+
+## Role-Based Frontend
+
+The application supports three roles:
+
+- ADMIN
+- STAFF
+- TREKKER
+
+After login, the user's role is used to determine the appropriate dashboard and navigation options.
+
+---
+
+## Frontend-Backend Integration
+
+The frontend does not directly access the SQLite database.
+
+The communication flow is:
+
+VueJS
+↓
+Axios
+↓
+Flask REST API
+↓
+SQLAlchemy
+↓
+SQLite
+
+This separates the presentation layer from the backend and database layers.
+
+---
+
+## Important Frontend Lesson
+
+A successful frontend page does not necessarily mean the API request succeeded.
+
+During testing, a dashboard initially returned:
+
+401 Unauthorized
+
+The browser developer tools were used to inspect the request and identify that the JWT token had expired.
+
+After obtaining a valid token, the protected API worked correctly.
+
+---
+
+## Design System
+
+The frontend follows a consistent visual theme called "Natural Tones".
+
+Primary colors:
+
+- Forest Green: #2E7D32
+- Dark Pine: #1B5E20
+- Soft Sage: #E8F5E9
+- Amber: #FFC107
+- Canvas: #F8F9FA
+- Text: #212529
+
+The design system is applied consistently across navigation, dashboards, cards, buttons, forms and status indicators.
 # Useful Commands
 
 ## Create Virtual Environment
